@@ -1,0 +1,84 @@
+#app {
+    font-family: 'Avenir';
+    text-align: center;
+    color: #2c3e50;
+}
+.div-card{
+    width: 800px;
+    margin: 100px auto;
+    background-color: white;
+    font-size: 18px;
+    border-radius: 10px !important;
+}
+
+.div-header{
+    margin-top: 30px;
+    margin-left: 45px;
+}
+
+.div-header-title{
+    width: 100%;
+    text-align: left;
+}
+
+.div-header-comment{
+    width: 100%;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.div-body{
+    margin-top: 30px;
+    text-align: left;
+    margin-left: 45px;
+    height: 400px;
+}
+
+.div-body-input{
+    width: 550px !important;
+    font-size: 20px;
+}
+.div-body-data-table-input{
+    width: auto  !important;
+    top: -2px;
+}
+
+.div-body-add-button{
+    margin-left: 10px;width: 70px;
+}
+
+.div-body-data-table{
+    margin-top: 50px;
+    margin-left: 10px;
+}
+
+.div-body-data-table-outer{
+    font-size: 20px !important;
+    width: 88%;
+    max-height: 270px;
+    overflow-y: auto;
+}
+
+.div-body-data-table-single{
+    height: 40px;
+}
+
+.div-body-data-table-checkbox{
+    font-size: 20px !important;
+}
+
+.div-body-data-table-del{
+    color: #999;
+}
+.div-footer{
+    margin-left: 50px;
+}
+
+.div-footer-button{
+    width:70px;
+    margin-right: 50px;
+    font-size: 30px;
+}
+.div-body-data-item{
+    background-color: darkseagreen;
+}
