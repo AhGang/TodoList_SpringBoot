@@ -24,7 +24,7 @@ data(){
  computed:{
      itemIsSelected:{
        get(){
-            return this.$store.state.showItems[this.index].isSelected
+            return this.$store.state.showItems[this.index].state
        },
        set(){
           this.$store.commit('completedItem',this.index)
@@ -32,24 +32,25 @@ data(){
     },
     itemVal: {
        get() {
-           return this.$store.state.showItems[this.index].val
+           return this.$store.state.showItems[this.index].name
           
        },
        set(itemVal) {
            
-           this.$store.commit('updateItem',{val:itemVal,index:this.index})
+           this.$store.commit('updateItem',{name:itemVal,index:this.index})
        }
     }
  }, 
  methods:{
    completedItem(index){
       this.$store.dispatch('putAItem',index)
-     // this.$store.commit('completedItem',index)
    },
      editItemName(index) {
+      // this.$store.dispatch('putAItem',index)
       this.isEditing = true
    },
    itemInputOnBlur(index) {
+      this.$store.dispatch('putAItem',index)
       this.isEditing = false 
    }
  }
