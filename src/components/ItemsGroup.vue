@@ -32,26 +32,10 @@ export default {
     }
   },
   created(){
-    this.getHttp()
-   
+    this.$store.dispatch('initData')
+    
   },
   methods:{
-    async getHttp(){
-       let api = "http://localhost:8080/to-do-lists"
-       this.$axios.get(api).then((response) =>{
-      this.$store.commit('initData',response.data)
-    })
-  },
-   postHttp(item){
-    this.$axios({
-    method: 'post',
-    url: 'http://localhost:8080/to-do-lists',
-    data: {
-           "name": item.val,
-           "state": item.isSelected
-          }
-    });
-   },
    addItem(){
      if(this.$store.state.itemName != ""){
        let item = {
@@ -61,7 +45,7 @@ export default {
        }
      this.$store.commit('pushItem',item)
      this.$store.commit('resetItemName')
-     this.postHttp(item)
+     this.$store.dispatch('postAItem',item)
      }else{
         this.$Message.error('Can not add a null item')
      }
