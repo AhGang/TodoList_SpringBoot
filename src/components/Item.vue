@@ -1,40 +1,56 @@
 <template>
-      <div  v-bind:class="{'div-body-data-item':itemData.index % 2 == 0}">
-         <span  class="div-body-data-table-del" v-if="item.isSelected">{{itemData.index+1}}.</span>
-      <span v-else>{{itemData.index+1}}. </span> 
+      <div  v-bind:class="{'div-body-data-item':index % 2 == 0}">
+         <span  class="div-body-data-table-del" v-if="itemIsSelected">{{index+1}}.</span>
+      <span v-else>{{index+1}}. </span> 
       <span>
-         <Checkbox size="large" class="div-body-data-table-checkbox" @click="completedItem(itemData.index)" v-model="item.isSelected">  </Checkbox>
-         <span v-if="!item.isEditing" @dblclick="editItemName(itemData.index)">
-          <del v-if="item.isSelected" class="div-body-data-table-del" >{{item.val}}</del>
-        <span v-else>{{item.val}}</span>  
+         <Checkbox size="large" class="div-body-data-table-checkbox" @on-change="completedItem(index)" v-model="itemIsSelected">  </Checkbox>
+         <span v-if="!isEditing" @dblclick="editItemName(index)">
+          <del v-if="itemIsSelected" class="div-body-data-table-del" >{{itemVal}}</del>
+        <span v-else>{{itemVal}}</span>  
          </span>
-       <Input v-else v-model="item.val" :autofocus="true" class="div-body-data-table-input" size="small" @on-blur="itemInputOnBlur(itemData.index)" @on-enter="itemInputOnBlur(itemData.index)"></Input>
+       <Input v-else v-model="itemVal" :autofocus="true" class="div-body-data-table-input" size="small" @on-blur="itemInputOnBlur(index)" @on-enter="itemInputOnBlur(index)"></Input>
        </span>
       </div>
 </template>
 <script>
 export default {
   name: 'Item',
-props:['itemData'],
+props:['index'],
 data(){
     return {
-     
+     isEditing: false
     }
   },
  computed:{
-    item:function(){
-       return this.$store.state.showItems[this.itemData.index]
+     itemIsSelected:{
+       get(){
+            return this.$store.state.showItems[this.index].isSelected
+       },
+       set(){
+          this.$store.commit('completedItem',this.index)
+       }
+    },
+    itemVal: {
+       get() {
+           return this.$store.state.showItems[this.index].val
+          
+       },
+       set(itemVal) {
+           
+           this.$store.commit('updateItem',{val:itemVal,index:this.index})
+       }
     }
  }, 
  methods:{
-    completedItem(index){
-     this.$emit("completedItem",index)
+   completedItem(index){
+      this.$store.dispatch('putAItem',index)
+     // this.$store.commit('completedItem',index)
    },
-   editItemName(index) {
-      this.$emit("editItemName",index)
+     editItemName(index) {
+      this.isEditing = true
    },
    itemInputOnBlur(index) {
-      this.$emit("itemInputOnBlur",index)
+      this.isEditing = false 
    }
  }
 }

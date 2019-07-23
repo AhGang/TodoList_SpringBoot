@@ -8,7 +8,7 @@
     <div class="div-body-data-table">
       <div class="div-body-data-table-outer">
     <div  class="div-body-data-table-single" v-for="(el, index) in $store.state.showItems" :key="index" > 
-         <Item :itemData="{el:el,index:index}" @completedItem="completedItem" @editItemName="editItemName" @itemInputOnBlur="itemInputOnBlur"></Item>
+         <Item :index="index" ></Item>
     </div>
       </div>
       </div> 
@@ -69,6 +69,9 @@ export default {
    },
    itemInputOnBlur(index) {
      this.$store.commit('isEditItem',{index:index,status:false})
+   },
+   backToHome(){
+      this.$router.push('welcome')
    }
 }
 }

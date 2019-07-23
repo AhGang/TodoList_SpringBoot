@@ -82,3 +82,10 @@
 .div-body-data-item{
     background-color: darkseagreen;
 }
+
+.div-body-showItemList{
+    width: 800px;
+    height: 500px;
+    margin-top: 50px;
+    background-color: darkseagreen;
+}
