@@ -13,7 +13,6 @@ const store = new Vuex.Store({
   },
   mutations: {
     pushItem(state, item) {
-      console.log('item        ' + item)
       state.allItems.push(item);
       state.showItems.push(item);
     },
@@ -99,7 +98,6 @@ const store = new Vuex.Store({
     },
     async putAItem(context, index) {
       let item = context.state.showItems[index]
-      console.log(item)
       axios({
         method: 'put',
         url: 'http://localhost:8080/to-do-lists/' + item.id,

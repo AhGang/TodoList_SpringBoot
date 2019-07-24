@@ -46,7 +46,6 @@ data(){
       this.$store.dispatch('putAItem',index)
    },
      editItemName(index) {
-      // this.$store.dispatch('putAItem',index)
       this.isEditing = true
    },
    itemInputOnBlur(index) {
