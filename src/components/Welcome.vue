@@ -11,10 +11,9 @@ export default {
   name: "welcome",
   data() {
     return {
-      inputText:''
+      inputText: ""
     };
   },
-  computed: {},
   methods: {
     jump() {
       this.$router.push({ name: "home", params: { id: this.inputText } });
@@ -24,5 +23,3 @@ export default {
 </script>
 <style>
 </style>
-
-

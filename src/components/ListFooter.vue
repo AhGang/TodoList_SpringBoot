@@ -1,8 +1,8 @@
 <template>
   <div class="div-footer">
-    <Button type="text" class="div-footer-button"  @click="showItemsStatus('All')">All</Button>
-    <Button type="text" class="div-footer-button"  @click="showItemsStatus('Active')">Active</Button>
-    <Button type="text" class="div-footer-button"  @click="showItemsStatus('Complete')">Complete</Button>
+    <a-button type="primary" class="div-footer-button"  @click="showItemsStatus('All')">All</a-button>
+    <a-button type="primary" class="div-footer-button"  @click="showItemsStatus('Active')">Active</a-button>
+    <a-button type="primary" class="div-footer-button"  @click="showItemsStatus('Complete')">Complete</a-button>
   </div>
 </template>
 <script>
@@ -22,3 +22,13 @@ export default {
 }
 </script>
 
+<style scoped>
+  .ant-btn-primary{
+    margin-left: 20px;
+    margin-bottom: 10px;
+    width: 90px;
+    color: #fff;
+    background-color: darkseagreen;
+    border-color: darkseagreen;
+}
+</style>

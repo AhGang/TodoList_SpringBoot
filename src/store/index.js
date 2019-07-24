@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios'
-import {Message} from 'iview';
+// import {Message} from 'iview';
 Vue.use(Vuex);
 
 
@@ -52,21 +52,24 @@ const store = new Vuex.Store({
     initData(state, data) {
       state.allItems = []
       state.showItems = []
-      data.forEach(element => {
-      let item = {
-        id:element.id,
-        name:element.name,
-        state: element.state,
+      if(data!=[]){
+            data.forEach(element => {
+        let item = {
+          id: element.id,
+          name: element.name,
+          state: element.state,
         }
-      state.allItems.push(item)
-      state.showItems.push(item)
+        state.allItems.push(item)
+        state.showItems.push(item)
       });
+      }
+  
     }
   },
   actions: {
 
-     initData(context) {
-       axios({
+    initData(context) {
+      axios({
         method: 'get',
         url: 'http://localhost:8080/to-do-lists',
       }).then((response) => {
@@ -76,21 +79,21 @@ const store = new Vuex.Store({
 
 
     },
-    
+
     async postAItem(context, item) {
-      try{
-         const postRes = await axios({
-        method: 'post',
-        url: 'http://localhost:8080/to-do-lists',
-        data: {
-          "name": item.name,
-          "state": item.state
-        }
-      });
-      }catch{
-        Message.error("New item error, please make sure there is no same Item");
+      try {
+        const postRes = await axios({
+          method: 'post',
+          url: 'http://localhost:8080/to-do-lists',
+          data: {
+            "name": item.name,
+            "state": item.state
+          }
+        });
+      } catch{
+        //  Message.error("New item error, please make sure there is no same Item");
       }
-      const getRes = await  axios({
+      const getRes = await axios({
         method: 'get',
         url: 'http://localhost:8080/to-do-lists',
       });
@@ -101,10 +104,26 @@ const store = new Vuex.Store({
       axios({
         method: 'put',
         url: 'http://localhost:8080/to-do-lists/' + item.id,
-        data:item,
+        data: item,
 
-       
+
       })
+    },
+    async deleteAItem(context, index) {
+      let item = context.state.showItems[index]
+      try{
+         const deleteRes = axios({
+        method: 'delete',
+        url: 'http://localhost:8080/to-do-lists/' + item.id
+      })
+      }catch{
+
+      }
+      const getRes = await axios({
+        method: 'get',
+        url: 'http://localhost:8080/to-do-lists',
+      });
+      context.commit('initData', getRes.data)
     }
 
   }

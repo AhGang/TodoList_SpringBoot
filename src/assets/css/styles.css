@@ -43,8 +43,12 @@
     top: -2px;
 }
 
-.div-body-add-button{
-    margin-left: 10px;width: 70px;
+.div-body-add-button :global(ant-btn-primary){
+    margin-left: 10px;
+    width: 70px;
+    color: #fff;
+    background-color: darkseagreen;
+    border-color: darkseagreen;
 }
 
 .div-body-data-table{
@@ -74,9 +78,9 @@
     margin-left: 50px;
 }
 
-.div-footer-button{
-    width:70px;
-    margin-right: 50px;
+.div-footer-button :global(ant-btn-primary){
+    width:90px;
+    margin-right: 20px;
     font-size: 30px;
 }
 .div-body-data-item{
@@ -88,4 +92,8 @@
     height: 500px;
     margin-top: 50px;
     background-color: darkseagreen;
+}
+
+.div-body-data-table-item_delete_btn{
+    float: right;
 }

@@ -3,13 +3,15 @@
          <span  class="div-body-data-table-del" v-if="itemIsSelected">{{index+1}}.</span>
       <span v-else>{{index+1}}. </span> 
       <span>
-         <Checkbox size="large" class="div-body-data-table-checkbox" @on-change="completedItem(index)" v-model="itemIsSelected">  </Checkbox>
-         <span v-if="!isEditing" @dblclick="editItemName(index)">
+         <a-checkbox @change="completedItem(index)" v-model="itemIsSelected"></a-checkbox>
+         <!-- <a-checkbox @change="" >  </a-checkbox> -->
+         <span v-if="!isEditing" @dblclick="editItemName()">
           <del v-if="itemIsSelected" class="div-body-data-table-del" >{{itemVal}}</del>
         <span v-else>{{itemVal}}</span>  
          </span>
-       <Input v-else v-model="itemVal" :autofocus="true" class="div-body-data-table-input" size="small" @on-blur="itemInputOnBlur(index)" @on-enter="itemInputOnBlur(index)"></Input>
+       <a-input v-else v-model="itemVal" :autofocus="true" class="div-body-data-table-input" size="small" @blur="itemInputOnBlur(index)" @on-enter="itemInputOnBlur(index)"></a-input>
        </span>
+        <a-button class="div-body-data-table-item_delete_btn" @click="deleteItem" icon="delete"></a-button>
       </div>
 </template>
 <script>
@@ -39,7 +41,8 @@ data(){
            
            this.$store.commit('updateItem',{name:itemVal,index:this.index})
        }
-    }
+    },
+    
  }, 
  methods:{
    completedItem(index){
@@ -51,6 +54,9 @@ data(){
    itemInputOnBlur(index) {
       this.$store.dispatch('putAItem',index)
       this.isEditing = false 
+   },
+   deleteItem(index){
+      this.$store.dispatch('deleteAItem',this.index)
    }
  }
 }

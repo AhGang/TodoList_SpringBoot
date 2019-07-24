@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Card class="div-card">
+    <div class="div-card">
       <ListHeader></ListHeader>
       <div class="div-body">
-        <Input class="div-body-input" type="text" v-model="$store.state.itemName"></Input>
-        <Button type="success" class="div-body-add-button" @click="addItem">Add</Button>
+        <a-input class="div-body-input"  v-model="$store.state.itemName"></a-input>
+        <a-button type="primary" class="div-body-add-button"  @click="addItem">Add</a-button>
         <div class="div-body-data-table">
           <div class="div-body-data-table-outer">
             <div
@@ -18,11 +18,12 @@
         </div>
       </div>
       <ListFooter @showItemsStatus="showItemsStatus"></ListFooter>
-    </Card>
+    </div>
   </div>
 </template>
 
 <script>
+import styles from '../assets/css/diyStyles.less';
 import Item from "./Item";
 import ListHeader from "./ListHeader";
 import ListFooter from "./ListFooter";
@@ -39,17 +40,17 @@ export default {
   },
   methods: {
     addItem() {
+      console.log(this.$store.state.itemName)
       if (this.$store.state.itemName != "") {
         let item = {
           id: "",
           name: this.$store.state.itemName,
-          state: this.status == "Complete" ? true : false,
-
+          state: this.status == "Complete" ? true : false
         };
-        this.$store.commit("resetItemName");
         this.$store.dispatch("postAItem", item);
+         this.$store.commit("resetItemName");
       } else {
-        this.$Message.error("Can not add a null item");
+       // this.$Message.error("Can not add a null item");
       }
     },
     showItemsStatus(status) {
@@ -81,3 +82,13 @@ export default {
   }
 };
 </script>
+<style scoped>
+
+ .ant-btn-primary{
+    margin-left: 10px;
+    width: 70px;
+    color: #fff;
+    background-color: darkseagreen;
+    border-color: darkseagreen;
+}
+</style>
