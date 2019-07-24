@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios'
-// import {Message} from 'iview';
+import {message} from 'ant-design-vue';
 Vue.use(Vuex);
 
 
@@ -52,18 +52,18 @@ const store = new Vuex.Store({
     initData(state, data) {
       state.allItems = []
       state.showItems = []
-      if(data!=[]){
-            data.forEach(element => {
-        let item = {
-          id: element.id,
-          name: element.name,
-          state: element.state,
-        }
-        state.allItems.push(item)
-        state.showItems.push(item)
-      });
+      if (data != []) {
+        data.forEach(element => {
+          let item = {
+            id: element.id,
+            name: element.name,
+            state: element.state,
+          }
+          state.allItems.push(item)
+          state.showItems.push(item)
+        });
       }
-  
+
     }
   },
   actions: {
@@ -91,7 +91,7 @@ const store = new Vuex.Store({
           }
         });
       } catch{
-        //  Message.error("New item error, please make sure there is no same Item");
+         message.error("Can not add a null item");
       }
       const getRes = await axios({
         method: 'get',
@@ -111,12 +111,12 @@ const store = new Vuex.Store({
     },
     async deleteAItem(context, index) {
       let item = context.state.showItems[index]
-      try{
-         const deleteRes = axios({
-        method: 'delete',
-        url: 'http://localhost:8080/to-do-lists/' + item.id
-      })
-      }catch{
+      try {
+        const deleteRes = axios({
+          method: 'delete',
+          url: 'http://localhost:8080/to-do-lists/' + item.id
+        })
+      } catch{
 
       }
       const getRes = await axios({

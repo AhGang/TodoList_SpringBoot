@@ -3,8 +3,15 @@
     <div class="div-card">
       <ListHeader></ListHeader>
       <div class="div-body">
-        <a-input class="div-body-input"  v-model="$store.state.itemName"></a-input>
-        <a-button type="primary" class="div-body-add-button"  @click="addItem">Add</a-button>
+        <a-input class="div-body-input" v-model="$store.state.itemName"></a-input>
+        <a-button type="primary" class="div-body-add-button" @click="addItem">Add</a-button>
+        <a-modal
+          title="Confirm To Add"
+          :visible="modalVisible"
+          @ok="handleOk"
+          @cancel="handleCancel"
+        >
+        </a-modal>
         <div class="div-body-data-table">
           <div class="div-body-data-table-outer">
             <div
@@ -23,7 +30,7 @@
 </template>
 
 <script>
-import styles from '../assets/css/diyStyles.less';
+import styles from "../assets/css/diyStyles.less";
 import Item from "./Item";
 import ListHeader from "./ListHeader";
 import ListFooter from "./ListFooter";
@@ -32,7 +39,8 @@ export default {
   components: { Item, ListHeader, ListFooter },
   data() {
     return {
-      status: "All"
+      status: "All",
+      modalVisible: false
     };
   },
   created() {
@@ -40,18 +48,7 @@ export default {
   },
   methods: {
     addItem() {
-      console.log(this.$store.state.itemName)
-      if (this.$store.state.itemName != "") {
-        let item = {
-          id: "",
-          name: this.$store.state.itemName,
-          state: this.status == "Complete" ? true : false
-        };
-        this.$store.dispatch("postAItem", item);
-         this.$store.commit("resetItemName");
-      } else {
-       // this.$Message.error("Can not add a null item");
-      }
+      this.modalVisible = true;
     },
     showItemsStatus(status) {
       this.status = status;
@@ -78,17 +75,33 @@ export default {
     },
     backToHome() {
       this.$router.push("welcome");
+    },
+    handleOk() {
+      if (this.$store.state.itemName != "") {
+        let item = {
+          id: "",
+          name: this.$store.state.itemName,
+          state: this.status == "Complete" ? true : false
+        };
+        this.$store.dispatch("postAItem", item);
+        this.$store.commit("resetItemName");
+      } else {
+        this.$message.error("Can not add a null item");
+      }
+      this.modalVisible = false;
+    },
+    handleCancel() {
+      this.modalVisible = false;
     }
   }
 };
 </script>
 <style scoped>
-
- .ant-btn-primary{
-    margin-left: 10px;
-    width: 70px;
-    color: #fff;
-    background-color: darkseagreen;
-    border-color: darkseagreen;
+.ant-btn-primary {
+  margin-left: 10px;
+  width: 70px;
+  color: #fff;
+  background-color: darkseagreen;
+  border-color: darkseagreen;
 }
 </style>
